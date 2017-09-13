@@ -53,3 +53,15 @@ export const taskSave = ({name, count, priority, uid}) => {
 			});
 	};
 };
+
+export const taskDelete = ({uid}) => {
+	const {currentUser} = firebase.auth();
+
+	return () => {
+		firebase.database().ref(`/users/${currentUser.uid}/tasks/${uid}`)
+			.remove()
+			.then(() => {
+				Actions.main();
+			});
+	};
+};
